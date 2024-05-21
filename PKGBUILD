@@ -1,4 +1,5 @@
-# Maintainer: Serge K <arch@phnx47.net>
+# Maintainer:
+# Contributor: Serge K <arch@phnx47.net>
 # Contributor: Nicola Squartini <tensor5@gmail.com>
 
 pkgname=solidity
