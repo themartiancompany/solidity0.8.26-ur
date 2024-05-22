@@ -18,7 +18,7 @@ depends=("boost")
 optdepends=("cvc4: SMT checker"
     "z3: SMT checker")
 makedepends=("cmake")
-conflicts=("solidity-bin")
+conflicts=("solidity-bin" "solidity-git")
 source=("${pkgname}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.gz")
 sha512sums=("ac799b64a792a857469e06d258225865acfca715b191d0e8df471429827725e0cbe631e57938f2bb7560e3d1629223ef0e24652480f385ed581ac96269fe2e29")
 
