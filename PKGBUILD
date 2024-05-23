@@ -10,7 +10,7 @@
 pkgname="solidity"
 pkgver="0.8.25"
 pkgrel="1"
-pkgdesc="Contract-Oriented Programming Language"
+pkgdesc="Smart contract programming language."
 arch=("x86_64")
 url="https://github.com/ethereum/${pkgname}"
 license=("GPL-3.0-or-later")

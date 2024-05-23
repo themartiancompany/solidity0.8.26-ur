@@ -1,5 +1,5 @@
 pkgbase = solidity
-	pkgdesc = Contract-Oriented Programming Language
+	pkgdesc = Smart contract programming language.
 	pkgver = 0.8.25
 	pkgrel = 1
 	url = https://github.com/ethereum/solidity
