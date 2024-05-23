@@ -8,7 +8,7 @@
 # Contributor: Nicola Squartini <tensor5@gmail.com>
 
 pkgname="solidity"
-pkgver="0.8.26"
+pkgver="0.8.25"
 pkgrel="1"
 pkgdesc="Contract-Oriented Programming Language"
 arch=("x86_64")
@@ -20,7 +20,7 @@ optdepends=("cvc4: SMT checker"
 makedepends=("cmake")
 conflicts=("solidity-bin" "solidity-git")
 source=("${pkgname}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.gz")
-sha512sums=("ac799b64a792a857469e06d258225865acfca715b191d0e8df471429827725e0cbe631e57938f2bb7560e3d1629223ef0e24652480f385ed581ac96269fe2e29")
+sha512sums=("03d47be7f7356cf6e0763fa96a008076e2baec849064bea74135e8c59b50c7734c3757f9e748b410a2a9fc6c8d05a712ed8783f4457de9f3e6e8f32317b6f538")
 
 _compile()
 {
