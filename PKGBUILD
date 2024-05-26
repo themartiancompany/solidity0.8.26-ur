@@ -54,7 +54,7 @@ build()
 check()
 {
     _compile "ON"
-    "${srcdir}"/"${pkgname}"_"${pkgver}"/build/test/soltest -p
+    "${srcdir}"/"${pkgname}"_"${pkgver}"/build/test/soltest -p --testpath "${srcdir}"/"${pkgname}"_"${pkgver}"/test/
     _compile "OFF"
 }
 
