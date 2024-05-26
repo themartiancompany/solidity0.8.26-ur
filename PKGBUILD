@@ -18,9 +18,12 @@ depends=("boost")
 optdepends=("cvc4: SMT checker"
     "z3: SMT checker")
 makedepends=("cmake")
+checkdepends=("evmone")
 conflicts=("solidity-bin" "solidity-git")
 source=("${pkgname}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.gz")
 sha512sums=("ac799b64a792a857469e06d258225865acfca715b191d0e8df471429827725e0cbe631e57938f2bb7560e3d1629223ef0e24652480f385ed581ac96269fe2e29")
+
+LDFLAGS="${LDFLAGS/-Wl,-z,pack-relative-relocs/}"
 
 _compile()
 {
@@ -36,7 +39,6 @@ _compile()
         -D STRICT_Z3_VERSION=OFF \
         -D TESTS="$1" \
         -D USE_SYSTEM_LIBRARIES=OFF \
-        -D USE_Z3=OFF \
         -S "${srcdir}"/"${pkgname}"_"${pkgver}"/ \
         -Wno-dev
     cmake --build "${srcdir}"/"${pkgname}"_"${pkgver}"/build/
@@ -52,7 +54,7 @@ build()
 check()
 {
     _compile "ON"
-    ctest --output-on-failure --test-dir "${srcdir}"/"${pkgname}"_"${pkgver}"/build/
+    "${srcdir}"/"${pkgname}"_"${pkgver}"/build/test/soltest
     _compile "OFF"
 }
 
