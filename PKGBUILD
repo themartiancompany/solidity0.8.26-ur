@@ -23,8 +23,6 @@ conflicts=("solidity-bin" "solidity-git")
 source=("${pkgname}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.gz")
 sha512sums=("ac799b64a792a857469e06d258225865acfca715b191d0e8df471429827725e0cbe631e57938f2bb7560e3d1629223ef0e24652480f385ed581ac96269fe2e29")
 
-LDFLAGS="${LDFLAGS/-Wl,-z,pack-relative-relocs/}"
-
 _compile()
 {
     cmake -B "${srcdir}"/"${pkgname}"_"${pkgver}"/build/ \
@@ -38,6 +36,7 @@ _compile()
         -D STRICT_NLOHMANN_JSON_VERSION=OFF \
         -D STRICT_Z3_VERSION=OFF \
         -D TESTS="$1" \
+        -D USE_LD_GOLD=OFF \
         -D USE_SYSTEM_LIBRARIES=OFF \
         -S "${srcdir}"/"${pkgname}"_"${pkgver}"/ \
         -Wno-dev
