@@ -14,10 +14,10 @@ pkgdesc="Smart contract programming language."
 arch=("x86_64")
 url="https://github.com/ethereum/${pkgname}"
 license=("GPL-3.0-or-later")
-depends=("boost")
+depends=("boost-libs")
 optdepends=("cvc4: SMT checker"
     "z3: SMT checker")
-makedepends=("cmake")
+makedepends=("boost" "cmake")
 checkdepends=("evmone")
 conflicts=("solidity-bin" "solidity-git")
 source=("${pkgname}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.gz")
