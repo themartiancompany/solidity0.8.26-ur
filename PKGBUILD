@@ -26,7 +26,7 @@ arch=(
 )
 _http="https://github.com"
 _ns="ethereum"
-url="${_http}/${_ns}/${pkgname}"
+url="${_http}/${_ns}/${_pkg}"
 license=(
   "GPL-3.0-or-later"
 )
@@ -53,10 +53,10 @@ conflicts=(
   "solidity-git"
 )
 source=(
-  "${pkgname}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.gz"
+  "${_pkg}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${_pkg}_${pkgver}.tar.gz"
 )
 sha512sums=(
-  '2ddce3edfc1d570fb42d19d3164f5f7316d511bd3020c711b8176410b39432b7e137806bc63e23bb6c7381ab880c7e7e667217ab4cd8d92a6ad7e2ab145a194f'
+  '24c3eb63b8c6ab8cae22fe26d7ce58002c34fa4e7371841833ba87363af2706826f5f86a0ef6945d7073fe52458e6f55f31b86af3469a6b039854aca36ebb869'
 )
 
 _compile() {
@@ -77,16 +77,16 @@ _compile() {
     -D TESTS="${_tests}"
     -D USE_LD_GOLD="OFF"
     -D USE_SYSTEM_LIBRARIES="OFF"
-    -S "${srcdir}/${pkgname}_${pkgver}/"
+    -S "${srcdir}/${_pkg}_${pkgver}/"
     -Wno-dev
   )
   cmake \
     -B \
-      "${srcdir}/${pkgname}_${pkgver}/build/" \
+      "${srcdir}/${_pkg}_${pkgver}/build/" \
     "${_cmake_opts[@]}"
   cmake \
     --build \
-      "${srcdir}/${pkgname}_${pkgver}/build/"
+      "${srcdir}/${_pkg}_${pkgver}/build/"
 }
 
 build()
@@ -109,11 +109,11 @@ check()
 {
   _compile \
     "ON"
-  "${srcdir}/${pkgname}_${pkgver}/build/test/soltest" \
+  "${srcdir}/${_pkg}_${pkgver}/build/test/soltest" \
     -p \
       true -- \
     --testpath \
-      "${srcdir}/${pkgname}_${pkgver}/test/"
+      "${srcdir}/${_pkg}_${pkgver}/test/"
   _compile \
     "OFF"
 }
@@ -128,15 +128,15 @@ package()
   DESTDIR="${pkgdir}/" \
   cmake \
     --install \
-      "${srcdir}/${pkgname}_${pkgver}/build/"
+      "${srcdir}/${_pkg}_${pkgver}/build/"
   # Install the documentation.
   install \
     -Dm644 \
-    "${srcdir}/${pkgname}_${pkgver}/README.md" \
+    "${srcdir}/${_pkg}_${pkgver}/README.md" \
     "${pkgdir}/usr/share/doc/${pkgname}/"
   cp \
     -r \
-    "${srcdir}/${pkgname}_${pkgver}/docs/"* \
+    "${srcdir}/${_pkg}_${pkgver}/docs/"* \
     "${pkgdir}/usr/share/doc/${pkgname}/"
   find \
     "${pkgdir}/usr/share/doc/${pkgname}/" \
