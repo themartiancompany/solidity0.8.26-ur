@@ -9,8 +9,8 @@
 # shellcheck disable=SC2034
 # shellcheck disable=SC2154
 _pkg="solidity"
-pkgname="${_pkg}"
-pkgver="0.8.28"
+pkgver="0.8.24"
+pkgname="${_pkg}${pkgver}"
 pkgrel="1"
 pkgdesc="Smart contract programming language."
 arch=(
@@ -66,6 +66,7 @@ _compile() {
   _cmake_opts=(
     -D CMAKE_BUILD_TYPE="None"
     -D CMAKE_INSTALL_PREFIX="/usr/"
+    -D CMAKE_EXECUTABLE_SUFFIX="${pkgver}"
     -D ONLY_BUILD_SOLIDITY_LIBRARIES="OFF"
     -D PEDANTIC="ON"
     -D PROFILE_OPTIMIZER_STEPS="OFF"
