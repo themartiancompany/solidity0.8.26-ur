@@ -48,9 +48,8 @@ provides=(
   "solc=${pkgver}"
 )
 conflicts=(
-  "solc"
-  "solidity-bin"
-  "solidity-git"
+  "${_pkg}-bin"
+  "${_pkg}-git"
 )
 source=(
   "${_pkg}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${_pkg}_${pkgver}.tar.gz"
