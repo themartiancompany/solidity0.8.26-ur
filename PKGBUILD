@@ -139,7 +139,8 @@ package() {
   for _bin in "${_binaries[@]}"; do
     mv \
       "${pkgdir}/usr/bin/${_bin}" \
-      "${pkgdir}/usr/bin/${_bin}${pkgver}"
+      "${pkgdir}/usr/bin/${_bin}${pkgver}" || \
+      true
   done
   # Install the documentation.
   install \
