@@ -117,8 +117,14 @@ check()
     "OFF"
 }
 
-package()
-{
+package() {
+  local \
+    _binaries=() \
+    _bin
+  _binaries=(
+    "solc"
+    "yul-phaser"
+  )
   # Assure that the directories exist.
   mkdir \
     -p \
@@ -128,6 +134,13 @@ package()
   cmake \
     --install \
       "${srcdir}/${_pkg}_${pkgver}/build/"
+  # Rename the binaries because
+  # CMAKE_EXECUTABLE_SUFFIX doesn't work
+  for _bin in "${_binaries[@]}"; do
+    mv \
+      "${pkgdir}/usr/bin/${_bin}" \
+      "${pkgdir}/usr/bin/${_bin}${pkgver}"
+  done
   # Install the documentation.
   install \
     -Dm644 \
