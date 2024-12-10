@@ -30,17 +30,33 @@ url="${_http}/${_ns}/${_pkg}"
 license=(
   "GPL-3.0-or-later"
 )
-depends=(
-  "boost-libs"
-)
+depends=()
+if [[ "${_os}" == "Android" ]]; then
+  depends+=(
+    "boost"
+  )
+elif [[ "${_os}" == "GNU/Linux" ]]; then
+  depends+=(
+    "boost-libs"
+  )
+fi
 optdepends=(
   "cvc4: SMT checker"
   "z3: SMT checker"
 )
 makedepends=(
-  "boost"
   "cmake"
 )
+if [[ "${_os}" == "Android" ]]; then
+  makedepends+=(
+    "boost-headers"
+    "boost-static"
+  )
+elif [[ "${_os}" == "GNU/Linux" ]]; then
+  makedepends+=(
+    "boost"
+  )
+fi
 checkdepends=(
   "evmone"
 )
