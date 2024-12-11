@@ -91,7 +91,7 @@ _boost_version_get() {
               "-" \
             -f \
 	      2 | \
-            rev)
+            rev
 }
 
 _verlte() {
