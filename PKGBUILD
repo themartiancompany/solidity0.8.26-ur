@@ -125,16 +125,16 @@ _compile() {
     )
     _boost_version="$( \
       _boost_version_get)"
-    if "$(_verlt \
+    if _verlt \
 	   "${_boost_version}" \
-	   "1.86.0")"; then
+	   "1.86.0"; then
       echo \
         "Installed boost version" \
 	"<=1.86.0, building with" \
         "deprecated declarations." \
         "Also be sure to use Clang" \
 	"<19.x"
-      _cxxflags=(
+      _cxxflags+=(
         -Wno-deprecated-declarations
       )
     fi
