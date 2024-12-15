@@ -64,6 +64,7 @@ checkdepends=(
   "evmone"
 )
 provides=(
+  "solidity=${pkgver}"
   "solc=${pkgver}"
 )
 conflicts=(
