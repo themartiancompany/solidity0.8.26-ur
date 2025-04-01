@@ -175,16 +175,16 @@ validpgpkeys=(
 )
 
 prepare() {
-  cd \
-    "${_tarname}"
-  sed \
-    -i \
-    "/add_compile_options(-Wsign-conversion)/a add_compile_options(-Wno-unused-but-set-variable)"
-    "${srcdir}/${_tarname}/cmake/EthCompilerSettings.cmake"
-  sed \
-    -i \
-    "s%add_compile_options(-Wsign-conversion)%add_compile_options(-Wno-sign-conversion)%"
-    "${srcdir}/${_tarname}/cmake/EthCompilerSettings.cmake"
+  if [[ "${_os}" == "Android" ]]; then
+    sed \
+      -i \
+      "/add_compile_options(-Wsign-conversion)/a add_compile_options(-Wno-unused-but-set-variable)"
+      "${srcdir}/${_tarname}/cmake/EthCompilerSettings.cmake"
+    sed \
+      -i \
+      "s%add_compile_options(-Wsign-conversion)%add_compile_options(-Wno-sign-conversion)%"
+      "${srcdir}/${_tarname}/cmake/EthCompilerSettings.cmake"
+  fi
 }
 
 _boost_version_get() {
