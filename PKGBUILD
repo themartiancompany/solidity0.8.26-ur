@@ -219,13 +219,13 @@ _compile() {
   )
   if [[ "${_os}" == "Android" ]]; then
     _cxxflags+=(
-      -Wno-unused-but-set-variable
-      -Wno-deprecated-declarations
       -Wno-dangling-reference
+      -Wno-dangling-field
+      -Wno-deprecated-declarations
       -Wno-sign-conversion
       -Wno-unknown-warning-option
       -Wno-unqualified-std-cast-call
-      -Wno-dangling-field
+      -Wno-unused-but-set-variable
     )
   fi
   _cmake_opts=(
@@ -255,6 +255,7 @@ _compile() {
     "${_cmake_opts[@]}"
   CXXFLAGS="${_cxxflags[*]}" \
   cmake \
+    VERBOSE=1 \
     --build \
       "${srcdir}/${_pkg}_${pkgver}/build/"
 }
