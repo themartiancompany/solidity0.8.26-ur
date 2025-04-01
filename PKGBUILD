@@ -255,7 +255,6 @@ _compile() {
     "${_cmake_opts[@]}"
   CXXFLAGS="${_cxxflags[*]}" \
   cmake \
-    VERBOSE=1 \
     --build \
       "${srcdir}/${_pkg}_${pkgver}/build/"
 }
