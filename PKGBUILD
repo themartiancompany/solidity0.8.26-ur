@@ -220,22 +220,13 @@ _compile() {
   if [[ "${_os}" == "Android" ]]; then
     _cxxflags+=(
       -Wno-unused-but-set-variable
+      -Wno-deprecated-declarations
+      -Wno-dangling-reference
+      -Wno-sign-conversion
+      -Wno-unknown-warning-option
+      -Wno-unqualified-std-cast-call
+      -Wno-dangling-field
     )
-    _boost_version="$( \
-      _boost_version_get)"
-    if _verlt \
-	   "${_boost_version}" \
-	   "1.86.0"; then
-      echo \
-        "Installed boost version" \
-	"<=1.86.0, building with" \
-        "deprecated declarations." \
-        "Also be sure to use Clang" \
-	"<19.x"
-      _cxxflags+=(
-        -Wno-deprecated-declarations
-      )
-    fi
   fi
   _cmake_opts=(
     -D CMAKE_BUILD_TYPE="None"
@@ -251,6 +242,7 @@ _compile() {
     -D TESTS="${_tests}"
     -D USE_LD_GOLD="OFF"
     -D USE_SYSTEM_LIBRARIES="OFF"
+    -DCMAKE_CXX_FLAGS="${_cxxflags[*]}"
     -S "${srcdir}/${_pkg}_${pkgver}/"
     -Wno-dev
   )
