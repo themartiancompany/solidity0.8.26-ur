@@ -44,6 +44,7 @@ fi
 _os="$( \
   uname \
     -o)"
+_offline="false"
 _git="false"
 _pkg="solidity"
 pkgver="0.8.26"
