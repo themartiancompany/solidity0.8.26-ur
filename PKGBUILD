@@ -111,7 +111,7 @@ sha256sums=()
 _url="${url}"
 _tag="${pkgver}"
 _tag_name="pkgver"
-_tarname="${pkgname}_${_tag}"
+_tarname="${_pkg}_${_tag}"
 if [[ "${_offline}" == "true" ]]; then
   _url="file://${HOME}/${pkgname}"
 fi
@@ -174,6 +174,18 @@ validpgpkeys=(
   '12D8E3D7888F741E89F86EE0FEC8567A644F1D16'
 )
 
+prepare() {
+  cd \
+    "${_tarname}"
+  sed \
+    -i \
+    "/add_compile_options(-Wsign-conversion)/a add_compile_options(-Wno-unused-but-set-variable)"
+    "${srcdir}/${_tarname}/cmake/EthCompilerSettings.cmake"
+  sed \
+    -i \
+    "s%add_compile_options(-Wsign-conversion)%add_compile_options(-Wno-sign-conversion)%"
+    "${srcdir}/${_tarname}/cmake/EthCompilerSettings.cmake"
+}
 
 _boost_version_get() {
   pacman \
@@ -299,9 +311,9 @@ package() {
   # Assure that the directories exist.
   mkdir \
     -p \
-      "${pkgdir}/usr/share/doc/${pkgname}/"
+      "${terdir}/usr/share/doc/${pkgname}/"
   # Install the software.
-  DESTDIR="${pkgdir}/" \
+  DESTDIR="${terdir}/" \
   cmake \
     --install \
       "${srcdir}/${_pkg}_${pkgver}/build/"
@@ -309,21 +321,21 @@ package() {
   # CMAKE_EXECUTABLE_SUFFIX doesn't work
   for _bin in "${_binaries[@]}"; do
     mv \
-      "${pkgdir}/usr/bin/${_bin}" \
-      "${pkgdir}/usr/bin/${_bin}${pkgver}" || \
+      "${terdir}/usr/bin/${_bin}" \
+      "${terdir}/usr/bin/${_bin}${pkgver}" || \
       true
   done
   # Install the documentation.
   install \
     -Dm644 \
     "${srcdir}/${_pkg}_${pkgver}/README.md" \
-    "${pkgdir}/usr/share/doc/${pkgname}/"
+    "${terdir}/usr/share/doc/${pkgname}/"
   cp \
     -r \
     "${srcdir}/${_pkg}_${pkgver}/docs/"* \
-    "${pkgdir}/usr/share/doc/${pkgname}/"
+    "${terdir}/usr/share/doc/${pkgname}/"
   find \
-    "${pkgdir}/usr/share/doc/${pkgname}/" \
+    "${terdir}/usr/share/doc/${pkgname}/" \
     -type \
       d \
     -exec \
@@ -331,7 +343,7 @@ package() {
         755 \
 	{} +
   find \
-    "${pkgdir}/usr/share/doc/${pkgname}/" \
+    "${terdir}/usr/share/doc/${pkgname}/" \
     -type \
       f \
     -exec \
