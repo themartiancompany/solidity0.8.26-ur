@@ -29,9 +29,22 @@
 
 # shellcheck disable=SC2034
 # shellcheck disable=SC2154
+_evmfs_available="$( \
+  command \
+    -v \
+    "evmfs" || \
+    true)"
+if [[ ! -v "_evmfs" ]]; then
+  if [[ "${_evmfs_available}" != "" ]]; then
+    _evmfs="true"
+  elif [[ "${_evmfs_available}" == "" ]]; then
+    _evmfs="false"
+  fi
+fi
 _os="$( \
   uname \
     -o)"
+_git="false"
 _pkg="solidity"
 pkgver="0.8.26"
 pkgname="${_pkg}${pkgver}"
@@ -92,12 +105,69 @@ conflicts=(
   "${_pkg}-bin"
   "${_pkg}-git"
 )
+source=()
+sha256sums=()
+_url="${url}"
+_tag="${pkgver}"
+_tag_name="pkgver"
+_tarname="${pkgname}_${_tag}"
+if [[ "${_offline}" == "true" ]]; then
+  _url="file://${HOME}/${pkgname}"
+fi
+_evmfs_network="100"
+_evmfs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
+_evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
+_archive_sum="5d48c9a38e101eb494bc58e20cf3786a8910d89c2ca0073ab04738edd30cf03a"
+_evmfs_archive_uri="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}/${_archive_sum}"
+_evmfs_archive_src="${_tarname}.tar.gz::${_evmfs_archive_uri}"
+_archive_sig_sum="4922cd7a0e9c78f3cc98df9f2191cc556851e85570aa6765294042de3d0b092a"
+_archive_sig_sum="32ba3924bcc6882b900c53f8fe17390a2f65c217a5ba153f58ecd45d313d4125"
+_archive_sig_uri="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}/${_archive_sig_sum}"
+_archive_sig_src="${_tarname}.tar.gz.sig::${_archive_sig_uri}"
+if [[ "${_evmfs}" == "true" ]]; then
+  makedepends+=(
+    "evmfs"
+  )
+  _src="${_evmfs_archive_src}"
+  _sum="${_archive_sum}"
+  source+=(
+    "${_archive_sig_src}"
+  )
+  sha256sums+=(
+    "${_archive_sig_sum}"
+  )
+elif [[ "${_git}" == true ]]; then
+  makedepends+=(
+    "git"
+  )
+  _src="${_tarname}::git+${_url}#${_tag_name}=${_tag}?signed"
+  _sum="SKIP"
+elif [[ "${_git}" == false ]]; then
+  if [[ "${_tag_name}" == 'pkgver' ]]; then
+    _src="${_pkg}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${_pkg}_${pkgver}.tar.gz"
+    # _src="${_tarname}.tar.gz::${_url}/archive/refs/tags/${_tag}.tar.gz"
+    _sum="${_archive_sum}"
+    # _sum="d4f4179c6e4ce1702c5fe6af132669e8ec4d0378428f69518f2926b969663a91"
+  elif [[ "${_tag_name}" == "commit" ]]; then
+    _src="${_tarname}.zip::${_url}/archive/${_commit}.zip"
+    _sum="${_archive_sum}"
+  fi
+fi
 source=(
-  "${_pkg}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${_pkg}_${pkgver}.tar.gz"
+  "${_src}"
 )
-sha512sums=(
-  'ac799b64a792a857469e06d258225865acfca715b191d0e8df471429827725e0cbe631e57938f2bb7560e3d1629223ef0e24652480f385ed581ac96269fe2e29'
+sha256sums=(
+  "${_sum}"
 )
+validpgpkeys=(
+  # Truocolo <truocolo@aol.com>
+  '97E989E6CF1D2C7F7A41FF9F95684DBE23D6A3E9'
+  # Truocolo <truocolo@0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b>
+  'F690CBC17BD1F53557290AF51FC17D540D0ADEED'
+  # Pellegrino Prevete (dvorak) <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
+  '12D8E3D7888F741E89F86EE0FEC8567A644F1D16'
+)
+
 
 _boost_version_get() {
   pacman \
