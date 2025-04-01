@@ -114,8 +114,14 @@ _tarname="${pkgname}_${_tag}"
 if [[ "${_offline}" == "true" ]]; then
   _url="file://${HOME}/${pkgname}"
 fi
-_evmfs_network="100"
-_evmfs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
+# Gnosis mainnet
+# _evmfs_network="100"
+# Holesky testnet
+_evmfs_network="17000"
+# Gnosis EVMFS
+# _evmfs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
+# Holesky EVMFS
+_evmfs_address="0x151920938488F193735e83e052368cD41F9d9362"
 _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
 _archive_sum="5d48c9a38e101eb494bc58e20cf3786a8910d89c2ca0073ab04738edd30cf03a"
 _evmfs_archive_uri="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}/${_archive_sum}"
