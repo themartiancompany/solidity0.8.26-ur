@@ -19,17 +19,24 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Maintainer: Truocolo <truocolo@aol.com>
-# Maintainer: Truocolo <truocolo@0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b>
-# Maintainer: Pellegrino Prevete (dvorak) <pellegrinoprevete@gmail.com>
-# Maintainer: Pellegrino Prevete (dvorak) <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
-# Contributor: Matheus <matheusgwdl@protonmail.com>
-# Contributor: Serge K <arch@phnx47.net>
-# Contributor: Nicola Squartini <tensor5@gmail.com>
+# Maintainers:
+#   Truocolo
+#     <truocolo@aol.com>
+#     <truocolo@0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b>
+#   Pellegrino Prevete (dvorak)
+#     <pellegrinoprevete@gmail.com>
+#     <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
+# Contributors:
+#   Matheus
+#     <matheusgwdl@protonmail.com>
+#   Serge K
+#     <arch@phnx47.net>
+#   Nicola Squartini
+#     <tensor5@gmail.com>
 
 # shellcheck disable=SC2034
 # shellcheck disable=SC2154
-_evmfs_available="$( \
+_evmfs_available="$(
   command \
     -v \
     "evmfs" || \
