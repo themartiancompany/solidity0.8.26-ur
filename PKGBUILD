@@ -53,21 +53,27 @@ _os="$( \
     -o)"
 _offline="false"
 _git="false"
-_pkg="solidity"
-pkgver="0.8.26"
-pkgname="${_pkg}${pkgver}"
-pkgrel="1"
-pkgdesc="Smart contract programming language."
+_pkg=solidity
+pkgver=0.8.26
+pkgbase="${_pkg}${pkgver}"
+pkgname=(
+  "${pkgbase}"
+)
+pkgrel=1
+_pkgdesc=(
+  "Smart contract programming language."
+)
+pkgdesc="${_pkgdesc[*]}"
 arch=(
-  "x86_64"
-  "i686"
   "aarch64"
   "arm"
   "armv7l"
   "armv6l"
+  "i686"
   "mips"
   "powerpc"
   "pentium4"
+  "x86_64"
 )
 _http="https://github.com"
 _ns="ethereum"
